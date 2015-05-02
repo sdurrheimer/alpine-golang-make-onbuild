@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -ex
+
+## Alpine deps
+apk add --update -t build-deps go git mercurial bzr gcc musl-dev make vim
+apk add -u musl
+
+## GO Magic
+goBin="/bin/app"
+if [ -s Makefile ]; then
+    binary="$(make -f Makefile -f /bin/helper.mak print-BINARY)"
+    target="$(make -f Makefile -f /bin/helper.mak print-TARGET)"
+
+    if [ "$target" ]; then
+	goBin="/bin/$target"
+    fi
+fi
+
+if [ -d "Godeps" ]; then
+    go get github.com/tools/godep
+fi
+
+make
+cp "$binary" "$goBin"
+
+# Store the binary name in a temp file for the go-run script
+echo "$goBin" > /tmp/go-bin-name
+
+## Cleanup Alpine deps
+apk del --purge build-deps
+rm -rf /go /var/cache/apk/*
