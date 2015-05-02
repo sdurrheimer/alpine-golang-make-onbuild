@@ -1,3 +1,4 @@
+GOURL := https://golang.org/dl
 GOPKG := go$(GO_VERSION).src.tar.gz
 
 PATCHDIR := /gopatch

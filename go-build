@@ -3,7 +3,7 @@
 set -ex
 
 ## Alpine deps
-apk add --update -t build-deps git mercurial bzr gcc libgcc musl-dev make vim curl patch perl
+apk add --update -t build-deps git mercurial bzr gcc libgcc musl-dev make vim curl patch perl bash
 apk add -u musl tar
 
 ## GO Magic
@@ -29,4 +29,4 @@ echo "$goBin" > /tmp/go-bin-name
 
 ## Cleanup Alpine deps
 apk del --purge build-deps
-rm -rf /go /var/cache/apk/*
+rm -rf /app /var/cache/apk/*
