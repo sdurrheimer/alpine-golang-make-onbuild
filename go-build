@@ -3,8 +3,8 @@
 set -ex
 
 ## Alpine deps
-apk add --update -t build-deps go git mercurial bzr gcc musl-dev make vim
-apk add -u musl
+apk add --update -t build-deps git mercurial bzr gcc libgcc musl-dev make vim curl patch perl
+apk add -u musl tar
 
 ## GO Magic
 goBin="/bin/app"
@@ -21,7 +21,7 @@ if [ -d "Godeps" ]; then
     go get github.com/tools/godep
 fi
 
-make
+make -f Makefile -f /bin/build_go_src.mak
 cp "$binary" "$goBin"
 
 # Store the binary name in a temp file for the go-run script
