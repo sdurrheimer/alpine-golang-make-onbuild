@@ -1,10 +1,21 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 ## Alpine deps
-apk add --update -t build-deps git mercurial bzr gcc libgcc musl-dev make vim curl patch perl bash
+apk add --update -t build-deps git mercurial bzr make vim
 apk add -u musl tar
+
+## apk GO version check
+if [ -s Makefile ]; then
+    goVersion="$(make -f Makefile -f /bin/helper.mak print-GO_VERSION)"
+    if [ "$goVersion" = "$(apk info go -s | sed -e 's/^[^0-9.]*\([0-9.]*\).*/\1/' | head -1)" ]; then
+        apk add -t build-deps go
+    else
+        # Get deps for go src build
+        apk add -t build-deps gcc libgcc musl-dev curl patch perl bash
+    fi
+fi
 
 ## GO Magic
 goBin="/bin/app"
@@ -15,10 +26,6 @@ if [ -s Makefile ]; then
     if [ "$target" ]; then
 	goBin="/bin/$target"
     fi
-fi
-
-if [ -d "Godeps" ]; then
-    go get github.com/tools/godep
 fi
 
 make -f Makefile -f /bin/build_go_src.mak

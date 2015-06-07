@@ -1,5 +1,5 @@
-FROM alpine:edge
-MAINTAINER The Prometheus Authors <prometheus-developers@googlegroups.com>
+FROM        alpine:3.2
+MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
 
 RUN addgroup -S golang && adduser -S -G golang golang
 
@@ -9,7 +9,7 @@ COPY helper.mak /bin/helper.mak
 COPY build_go_src.mak /bin/build_go_src.mak
 COPY gopatch /gopatch 
 
-RUN mkdir -p /app
+RUN     mkdir -p /app
 WORKDIR /app
 
 ONBUILD COPY    . /app
