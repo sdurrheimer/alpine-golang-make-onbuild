@@ -16,7 +16,7 @@ TARGET := graphite_exporter
 
 ### Dockerfile
 ```
-FROM sdurrheimer/alpine-golang-make-onbuild
+FROM sdurrheimer/alpine-golang-make-onbuild:glibc
 MAINTAINER The Prometheus Authors <prometheus-developers@googlegroups.com>
 
 EXPOSE  9108 9109
