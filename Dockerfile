@@ -1,4 +1,4 @@
-FROM        alpine:3.2
+FROM        sdurrheimer/alpine-glibc
 MAINTAINER  The Prometheus Authors <prometheus-developers@googlegroups.com>
 
 RUN addgroup -S golang && adduser -S -G golang golang
