@@ -1,23 +1,23 @@
-
-# WIP
+# Alpine Golang Make Onbuild
 
 ## Details
 
-Alpine based image for Golang.
+Alpine based image for Golang witch glibc. This is a onbuild image using make.
 
 ## Usage example
 
 In your `Makefile`
 ```
-TARGET := graphite_exporter
+VERSION  := 0.1.0
+TARGET   := your_exporter
 
-+ your build process
+include Makefile.COMMON
 ```
 
 ### Dockerfile
 ```
-FROM sdurrheimer/alpine-golang-make-onbuild:glibc
+FROM sdurrheimer/alpine-golang-make-onbuild
 MAINTAINER The Prometheus Authors <prometheus-developers@googlegroups.com>
 
-EXPOSE  9108 9109
+EXPOSE  91xx
 ```
