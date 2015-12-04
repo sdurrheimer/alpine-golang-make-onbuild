@@ -2,7 +2,7 @@
 
 ## Details
 
-Alpine based image for Golang witch glibc. This is a onbuild image using make.
+Alpine based image for Golang with glibc. This is a onbuild image using make.
 
 ## Usage example
 
